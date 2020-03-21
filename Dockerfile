@@ -14,5 +14,8 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 # apt-get remove ...
 RUN mkdir /run/php/ && ln -s /usr/sbin/php-fpm$PHPVERSION /usr/sbin/php-fpm
 COPY www.conf /etc/php/$PHPVERSION/fpm/pool.d/www.conf
+
+RUN mkdir /var/www
+WORKDIR /var/www
 EXPOSE 9000
 CMD ["/usr/sbin/php-fpm", "-F", "-R"]
