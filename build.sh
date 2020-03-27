@@ -6,9 +6,13 @@ docker build -t insignagency/php:php$PHPVERSION .
 
 if [[ "$(git branch |grep php$PHPVERSION)" =~ (^| )php$PHPVERSION( |$) ]];
 then
+    git stash
     git checkout php$PHPVERSION
+    git stash pop
 else
+    git stash
     git checkout -b php$PHPVERSION
+    git stash pop
 fi
 
 git diff
