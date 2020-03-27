@@ -1,6 +1,6 @@
 FROM debian:buster-slim
 
-ARG PHPVERSION=7.3
+ARG PHPVERSION=7.4
 
 RUN apt-get update && apt-get -y install patch git default-mysql-client gnupg ca-certificates apt-transport-https wget && \
     wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - && \
