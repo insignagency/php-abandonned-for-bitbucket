@@ -12,3 +12,6 @@ else
 fi
 
 git diff
+
+echo "To push:"
+echo "git push -u origin php$PHPVERSION"
