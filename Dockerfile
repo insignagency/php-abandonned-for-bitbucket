@@ -7,7 +7,11 @@ RUN apt-get update && apt-get -y install patch git default-mysql-client gnupg ca
     echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.list.d/php.list && \
     apt-get update && apt-get -y install php$PHPVERSION php$PHPVERSION-fpm php$PHPVERSION-curl php$PHPVERSION-dom \
     php$PHPVERSION-zip php$PHPVERSION-gd php$PHPVERSION-imagick php$PHPVERSION-xmlwriter php$PHPVERSION-mbstring \
-    php$PHPVERSION-pdo-mysql
+    php$PHPVERSION-pdo-mysql php$PHPVERSION-xdebug
+
+RUN unlink /etc/php/$PHPVERSION/cli/conf.d/20-xdebug.ini && \
+    unlink /etc/php/$PHPVERSION/fpm/conf.d/20-xdebug.ini && \
+    sed -i "s|memory_limit = 128M|memory_limit = 1024M|" /etc/php/$PHPVERSION/fpm/php.ini
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
