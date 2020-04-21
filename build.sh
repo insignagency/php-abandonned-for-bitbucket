@@ -1,5 +1,5 @@
 #!/bin/bash
-PHPVERSION="7.4"
+PHPVERSION="7.2"
 
 perl -p -i -e "s|PHPVERSION=.*$|PHPVERSION=$PHPVERSION|g" Dockerfile
 docker build -t insignagency/php:php$PHPVERSION .
