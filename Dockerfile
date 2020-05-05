@@ -11,7 +11,13 @@ RUN apt-get update && apt-get -y install patch git rsync unzip default-mysql-cli
 
 RUN unlink /etc/php/$PHPVERSION/cli/conf.d/20-xdebug.ini && \
     unlink /etc/php/$PHPVERSION/fpm/conf.d/20-xdebug.ini && \
-    sed -i "s|memory_limit = 128M|memory_limit = 1024M|" /etc/php/$PHPVERSION/fpm/php.ini
+    sed -i "s|memory_limit = 128M|memory_limit = 1024M|" /etc/php/$PHPVERSION/fpm/php.ini && \
+    echo "xdebug.remote_enable=On" >> /etc/php/$PHPVERSION/fpm/php.ini && \
+    echo "xdebug.remote_host=host.docker.internal" >> /etc/php/$PHPVERSION/fpm/php.ini && \
+    echo "xdebug.remote_port=9000" >> /etc/php/$PHPVERSION/fpm/php.ini && \
+    echo "xdebug.remote_enable=On" >> /etc/php/$PHPVERSION/cli/php.ini && \
+    echo "xdebug.remote_host=host.docker.internal" >> /etc/php/$PHPVERSION/cli/php.ini && \
+    echo "xdebug.remote_port=9000" >> /etc/php/$PHPVERSION/cli/php.ini
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
