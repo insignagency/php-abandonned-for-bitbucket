@@ -7,7 +7,7 @@ RUN apt-get update && apt-get -y install patch git default-mysql-client gnupg ca
     echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.list.d/php.list && \
     apt-get update && apt-get -y install php$PHPVERSION php$PHPVERSION-fpm php$PHPVERSION-curl php$PHPVERSION-dom \
     php$PHPVERSION-zip php$PHPVERSION-gd php$PHPVERSION-imagick php$PHPVERSION-xmlwriter php$PHPVERSION-mbstring \
-    php$PHPVERSION-pdo-mysql
+    php$PHPVERSION-pdo-mysql php$PHPVERSION-redis php$PHPVERSION-memcache
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 # composant php pour l'outil insign devstack
