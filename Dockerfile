@@ -20,7 +20,8 @@ RUN unlink /etc/php/$PHPVERSION/cli/conf.d/20-xdebug.ini && \
     echo "xdebug.remote_port=9000" >> /etc/php/$PHPVERSION/cli/php.ini
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-
+# composant php pour l'outil insign devstack
+RUN  composer require symfony/yaml
 RUN wget https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 && \
     chmod +x mhsendmail_linux_amd64 && \
     mv mhsendmail_linux_amd64 /usr/local/bin/mhsendmail
@@ -33,3 +34,4 @@ RUN mkdir /var/www
 WORKDIR /var/www
 EXPOSE 9000
 CMD ["/usr/sbin/php-fpm", "-F", "-R"]
+151.101.0.133
