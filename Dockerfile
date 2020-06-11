@@ -34,4 +34,3 @@ RUN mkdir /var/www
 WORKDIR /var/www
 EXPOSE 9000
 CMD ["/usr/sbin/php-fpm", "-F", "-R"]
-151.101.0.133
