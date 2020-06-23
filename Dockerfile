@@ -7,7 +7,8 @@ RUN apt-get update && apt-get -y install patch git rsync unzip default-mysql-cli
     echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.list.d/php.list && \
     apt-get update && apt-get -y install php$PHPVERSION php$PHPVERSION-fpm php$PHPVERSION-curl php$PHPVERSION-dom \
     php$PHPVERSION-zip php$PHPVERSION-gd php$PHPVERSION-imagick php$PHPVERSION-xmlwriter php$PHPVERSION-mbstring \
-    php$PHPVERSION-pdo-mysql php$PHPVERSION-xdebug
+    php$PHPVERSION-pdo-mysql php$PHPVERSION-xdebug php$PHPVERSION-bcmath php$PHPVERSION-intl php$PHPVERSION-soap \
+    php$PHPVERSION-memcache php$PHPVERSION-redis
 
 RUN unlink /etc/php/$PHPVERSION/cli/conf.d/20-xdebug.ini && \
     unlink /etc/php/$PHPVERSION/fpm/conf.d/20-xdebug.ini && \
