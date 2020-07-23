@@ -21,6 +21,9 @@ RUN unlink /etc/php/$PHPVERSION/cli/conf.d/20-xdebug.ini && \
     echo "xdebug.remote_port=9000" >> /etc/php/$PHPVERSION/cli/php.ini
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
+# composer perfs optims
+RUN composer config --global repo.packagist.org composer https://packagist.org
+RUN echo 'precedence ::ffff:0:0/96 100' >> /etc/gai.conf
 # composant php pour l'outil insign devstack
 RUN  composer require symfony/yaml
 RUN wget https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 && \
