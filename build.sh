@@ -2,7 +2,7 @@
 PHPVERSION="7.3"
 
 perl -p -i -e "s|PHPVERSION=.*$|PHPVERSION=$PHPVERSION|g" Dockerfile
-docker build -t insignagency/php:php$PHPVERSION .
+docker build -t insignagency/php:php$PHPVERSION-sqlite .
 
 if [[ "$(git branch |grep php$PHPVERSION)" =~ (^| )php$PHPVERSION( |$) ]];
 then
