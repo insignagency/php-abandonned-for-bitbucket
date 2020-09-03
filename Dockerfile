@@ -1,6 +1,7 @@
 FROM debian:buster-slim
 
 ARG PHPVERSION=7.1
+ENV PHPVERSION=$PHPVERSION
 
 RUN apt-get update && apt-get -y install patch acl git rsync unzip default-mysql-client gnupg ca-certificates apt-transport-https wget && \
     wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - && \
@@ -33,9 +34,10 @@ RUN wget https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendma
 
 # apt-get remove ...
 RUN mkdir /run/php/ && ln -s /usr/sbin/php-fpm$PHPVERSION /usr/sbin/php-fpm
-COPY www.conf /etc/php/$PHPVERSION/fpm/pool.d/www.conf
 
 RUN mkdir /var/www && setfacl -d -m u:www-data:rwx /var/www
 WORKDIR /var/www
 EXPOSE 9000
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/sbin/php-fpm", "-F", "-R"]
