@@ -20,6 +20,8 @@ RUN unlink /etc/php/$PHPVERSION/cli/conf.d/20-xdebug.ini && \
     echo "xdebug.remote_host=host.docker.internal" >> /etc/php/$PHPVERSION/cli/php.ini && \
     echo "xdebug.remote_port=9000" >> /etc/php/$PHPVERSION/cli/php.ini
 
+RUN apt-get -y install php$PHPVERSION-pdo-sqlite
+
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 # composer perfs optims
 RUN composer config --global repo.packagist.org composer https://packagist.org
