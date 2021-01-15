@@ -23,9 +23,10 @@ RUN unlink /etc/php/$PHPVERSION/cli/conf.d/20-xdebug.ini && \
 RUN apt-get install -y curl && \
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash && \
     . /root/.bashrc && nvm install 6 && \
+    npm config set prefix "/var/www/.npm-packages" && \
     npm install grunt@1.0 && \
     ln -s /node_modules/grunt/bin/grunt /usr/bin/ && \
-    ln -s /root/.nvm/versions/node/v6.17.1/bin/node /usr/bin/
+    cp /root/.nvm/versions/node/v6.17.1/bin/node /usr/bin/
 
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
@@ -42,7 +43,7 @@ RUN wget https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendma
 RUN mkdir /run/php/ && ln -s /usr/sbin/php-fpm$PHPVERSION /usr/sbin/php-fpm
 COPY www.conf /etc/php/$PHPVERSION/fpm/pool.d/www.conf
 
-RUN mkdir /var/www && setfacl -d -m u:www-data:rwx /var/www
+RUN setfacl -d -m u:www-data:rwx /var/www
 WORKDIR /var/www
 EXPOSE 9000
 CMD ["/usr/sbin/php-fpm", "-F", "-R"]
