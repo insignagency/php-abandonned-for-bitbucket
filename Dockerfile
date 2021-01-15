@@ -20,6 +20,14 @@ RUN unlink /etc/php/$PHPVERSION/cli/conf.d/20-xdebug.ini && \
     echo "xdebug.remote_host=host.docker.internal" >> /etc/php/$PHPVERSION/cli/php.ini && \
     echo "xdebug.remote_port=9000" >> /etc/php/$PHPVERSION/cli/php.ini
 
+RUN apt-get install -y curl && \
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash && \
+    . /root/.bashrc && nvm install 6 && \
+    npm install grunt@1.0 && \
+    ln -s /node_modules/grunt/bin/grunt /usr/bin/ && \
+    ln -s /root/.nvm/versions/node/v6.17.1/bin/node /usr/bin/
+
+
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 # composer perfs optims
 RUN composer config --global repo.packagist.org composer https://packagist.org
