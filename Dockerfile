@@ -27,7 +27,8 @@ RUN apt-get install -y curl && \
     npm config set prefix "/var/www/.npm-packages" && \
     npm install grunt@1.0 && \
     ln -s /node_modules/grunt/bin/grunt /usr/bin/ && \
-    cp /root/.nvm/versions/node/v6.17.1/bin/node /usr/bin/
+    cp /root/.nvm/versions/node/v6.17.1/bin/node /usr/bin/ && \
+    cp /root/.nvm/versions/node/v6.17.1/bin/npm /usr/bin/
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 # composer perfs optims
