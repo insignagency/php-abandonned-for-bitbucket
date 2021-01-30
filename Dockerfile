@@ -41,6 +41,7 @@ USER root
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 # composer perfs optims
 RUN composer config --global repo.packagist.org composer https://packagist.org
+RUN composer self-update --1
 RUN echo 'precedence ::ffff:0:0/96 100' >> /etc/gai.conf
 # composant php pour l'outil insign devstack
 RUN  composer require symfony/yaml
