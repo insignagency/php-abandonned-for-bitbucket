@@ -3,7 +3,9 @@ FROM debian:buster-slim
 ARG PHPVERSION=7.1
 ENV PHPVERSION=$PHPVERSION
 
-RUN apt-get update && apt-get -y install patch acl git rsync unzip default-mysql-client gnupg ca-certificates apt-transport-https wget && \
+RUN apt-get update && apt-get -y install patch acl git rsync unzip \
+    vim nano iputils-ping net-tools \
+    default-mysql-client gnupg ca-certificates apt-transport-https wget && \
     wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - && \
     echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.list.d/php.list && \
     apt-get update && apt-get -y install php$PHPVERSION php$PHPVERSION-fpm php$PHPVERSION-curl php$PHPVERSION-dom \
@@ -55,6 +57,7 @@ RUN mkdir /run/php/ && ln -s /usr/sbin/php-fpm$PHPVERSION /usr/sbin/php-fpm
 
 RUN setfacl -d -m u:www-data:rwx /var/www
 WORKDIR /var/www
+USER www-data
 EXPOSE 9000
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
