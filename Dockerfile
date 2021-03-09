@@ -3,7 +3,7 @@ FROM debian:buster-slim
 ARG PHPVERSION=7.3
 
 RUN apt-get update && apt-get -y install patch acl git rsync unzip  \
-    vim nano iputils-ping net-tools \
+    vim nano iputils-ping net-tools netcat \
     default-mysql-client gnupg ca-certificates apt-transport-https wget && \
     wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - && \
     echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.list.d/php.list && \
