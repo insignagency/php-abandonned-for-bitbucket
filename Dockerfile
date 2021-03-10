@@ -39,6 +39,5 @@ COPY www.conf /etc/php/$PHPVERSION/fpm/pool.d/www.conf
 
 RUN mkdir /var/www && chown www-data: /var/www
 WORKDIR /var/www
-USER www-data
 EXPOSE 9000
 CMD ["/usr/sbin/php-fpm", "-F", "-R"]
