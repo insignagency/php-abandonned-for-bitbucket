@@ -55,7 +55,6 @@ RUN wget https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendma
 RUN mkdir /run/php/ && ln -s /usr/sbin/php-fpm$PHPVERSION /usr/sbin/php-fpm
 COPY www.conf /etc/php/$PHPVERSION/fpm/pool.d/www.conf
 
-RUN mkdir /var/www && setfacl -d -m u:www-data:rwx /var/www
 WORKDIR /var/www
 USER www-data
 EXPOSE 9000
