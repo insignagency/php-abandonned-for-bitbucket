@@ -43,7 +43,6 @@ RUN ln -s /var/www/.nvm/versions/node/v6.17.1/bin/grunt /usr/bin/ && \
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 # composer perfs optims
 RUN composer config --global repo.packagist.org composer https://packagist.org
-RUN composer self-update --1
 RUN echo 'precedence ::ffff:0:0/96 100' >> /etc/gai.conf
 # composant php pour l'outil insign devstack
 RUN  composer require symfony/yaml
@@ -54,11 +53,10 @@ RUN wget https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendma
 
 # apt-get remove ...
 RUN mkdir /run/php/ && ln -s /usr/sbin/php-fpm$PHPVERSION /usr/sbin/php-fpm
+COPY www.conf /etc/php/$PHPVERSION/fpm/pool.d/www.conf
 
-RUN setfacl -d -m u:www-data:rwx /var/www
+RUN mkdir /var/www && setfacl -d -m u:www-data:rwx /var/www
 WORKDIR /var/www
 USER www-data
 EXPOSE 9000
-COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/sbin/php-fpm", "-F", "-R"]
