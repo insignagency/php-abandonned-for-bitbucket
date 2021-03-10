@@ -56,6 +56,5 @@ COPY www.conf /etc/php/$PHPVERSION/fpm/pool.d/www.conf
 
 RUN setfacl -d -m u:www-data:rwx /var/www
 WORKDIR /var/www
-USER www-data
 EXPOSE 9000
 CMD ["/usr/sbin/php-fpm", "-F", "-R"]
