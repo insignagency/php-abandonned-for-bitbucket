@@ -56,6 +56,5 @@ RUN mkdir /run/php/ && ln -s /usr/sbin/php-fpm$PHPVERSION /usr/sbin/php-fpm
 COPY www.conf /etc/php/$PHPVERSION/fpm/pool.d/www.conf
 
 WORKDIR /var/www
-USER www-data
 EXPOSE 9000
 CMD ["/usr/sbin/php-fpm", "-F", "-R"]
