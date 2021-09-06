@@ -1,6 +1,6 @@
 FROM debian:buster-slim
 
-ARG PHPVERSION=7.4
+ARG PHPVERSION=8.0
 
 RUN apt-get update && apt-get -y install patch acl git rsync unzip  \
     vim nano iputils-ping net-tools netcat \
